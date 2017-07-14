@@ -1,4 +1,4 @@
-# tennesse-eastman-challenge
+# tennessee-eastman-challenge
 Tennessee Eastman Challenge Problem Archive
 
 > **Disclaimer:**
