@@ -11,7 +11,7 @@ Tennessee Eastman Challenge Problem Archive
 >
 > Some *readme* files have been edited a little with the purpose of better displaying its content.
 >
-> This repository is still waiting approval by the author, Prof. N. L. Ricker.
+> The author, Prof. N. L. Ricker, has given permission to the creation of this repository.
 
 ## Table of contents
 
@@ -35,15 +35,15 @@ Author
 ---------
 
 > N. Lawrence Ricker
-
+>
 > Professor Emeritus, Chemical Engineering
-
+>
 > University of Washington
-
+>
 > Box 351750 Seattle, WA 98195-1750 USA
-
+>
 > ricker@u.washington.edu
-
+>
 > Source: http://depts.washington.edu/control/LARRY/TE/download.html
  
 General comments
