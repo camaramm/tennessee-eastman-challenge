@@ -1,0 +1,28 @@
+All files on this directory are related to the system described in the paper,
+"MPC of a continuous, nonlinear, two-phase reactor", N. L. Ricker, J. of
+Process Control, vol. 3, 109-123(1993).
+
+Here's a brief description of each:
+
+
+cremex.mpw      Example commands for compiling and linking MEX files
+                using MPW on a Macintosh II-fx.
+
+nlreuler.m      Matlab function for Euler (fixed step-size) integration
+                of a system of ODEs.  Used in simulation example.
+                
+te4com.inc      An "include" file containing Fortran code.  Needed when
+                compiling te_4.f and te_4.fv4
+                
+te4sstst.m      Matlab script that tests the steady-state calculation
+                function, te_4_ss.m.
+                
+te_4.f          Fortran code for generation of MEX file for Version 3.5 of 
+                Matlab.
+                
+te_4.fv4        Fortran code for generation of MEX file for Version 4.x of 
+                Matlab.
+                
+te_4_pi.m       Example Matlab script simulating multiloop control of the plant.
+
+te_4_ss.m       Matlab function to calculate steady-state of the plant.

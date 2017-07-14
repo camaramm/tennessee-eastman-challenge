@@ -1,0 +1,212 @@
+
+The following files are contained in this package
+
+TEest3.f		This is a fortran source file containing the 
+			model of the Tennessee Eastman challenge process
+			as described by Ricker, N. L., and J. H. Lee,
+			"Nonlinear modeling and state estimation for the
+			Tennessee Eastman challenge process", Computers
+			and Chemical Engineering (accepted), 1994.
+			
+			It is designed to be used as a .MEX file with Matlab version
+			3.5.  The first subroutine in the file, USRFCN, is the
+			standard MEX interface.  This subroutine can be removed
+			if you are not going to use the model in Matlab.  The
+			second subroutine, TEsimf, is the model.  Examples of
+			both Matlab and Fortran calls appear below.
+
+TEest3.fV4		Identical to the above except that the MEX interface
+			is designed for Matlab version 4.x.  The interface
+			subroutine is named mexFunction in this case.
+
+TEest3_ss_RUN.m	Matlab script that illustrates calibration of the model
+			inputs at a steady-state condition.
+			
+TEest3_ss.m		Function called by TEest3_ss_RUN.m to do the calibration.
+
+
+See the document README_MEX.DOC in the [ricker.TE_send] directory for some
+hints on the preparation of MEX files.  The above were tested on Macintosh
+computers.  The Language Systems MPW Fortran compiler was used.  It
+is likely that the code will work on any modern compiler.
+
+
+EXAMPLES
+
+Here is an example script calling the TEest3 MEX function in Matlab:
+
+x_ss =[4.719609374128481e+00
+     1.979463571168700e+00
+     3.433666896439490e+00
+     1.819813988463059e-01
+     1.030422808486273e+01
+     1.255264515015330e+00
+     6.606004960848229e+01
+     6.788881836831963e+01
+     2.889497316622229e+01
+     1.211891540981524e+01
+     2.102201791916009e+01
+     9.656376929303520e-02
+     5.905208334599143e+00
+     7.193744563054116e-01
+     2.049241884758436e+01
+     1.619527220772475e+01
+     5.177421313003835e+01
+     1.431252009270226e+01
+     4.246184049705779e+01
+     1.111657911933379e+01
+     3.015608978185341e+01
+     2.665009131727130e+00
+     5.680074319818737e+00
+     2.678863712942000e+00
+     2.174119211892317e+01
+     1.773644866704200e+01];
+   
+u_ss =[1.120000000000000e+01
+     1.145000000000000e+02
+     9.800000000000000e+01
+     4.175000000000000e+02
+     1.201500000000000e+03
+     1.510000000000000e+01
+     2.595000000000000e+02
+     2.113000000000000e+02
+     1.204000000000000e+02
+     8.010899999999999e+01
+     4.817993608770129e+01
+     4.999456287425161e-01
+     1.030019053957069e+02
+     1.008789972898921e+02
+     9.349498036041268e-01
+     9.928395653130411e+01
+     9.972033077752585e+01
+     9.755199999999999e+01
+     1.001125401829961e+02
+     9.859314504463755e+01
+    -3.434967633847123e+00
+     4.466146860446880e-01
+    -2.070191433847128e+00
+    -1.649292860446963e-01
+     9.960083735827341e+01];   
+
+t=0;
+   
+format short e
+
+dxdt=TEest3(t,x_ss,u_ss,1)
+
+y=TEest3(t,x_ss,u_ss,3)
+
+
+The above calls to TEest3 produce the following results:
+
+
+dxdt =
+
+  -4.8690e-12
+  -2.2125e-12
+  -3.3680e-12
+   7.4951e-13
+  -4.2437e-12
+  -4.8439e-13
+  -3.3253e-12
+  -1.4211e-12
+   4.8825e-12
+   2.0473e-12
+   3.4406e-12
+   2.0065e-13
+   3.5285e-12
+   4.2563e-13
+   2.1939e-12
+   1.7004e-12
+   7.5162e-13
+   1.7000e-13
+   6.8678e-13
+   8.9456e-14
+   4.2530e-13
+   5.7105e-14
+   6.6933e-14
+   1.8836e-14
+   1.1657e-15
+  -1.4641e-15
+
+
+y =
+
+   2.7050e+03
+   7.5000e+01
+   2.6337e+03
+   5.0000e+01
+   5.0000e+01
+   3.1022e+03
+   4.2195e+01
+   3.2189e+01
+   8.8983e+00
+   2.6399e+01
+   6.9114e+00
+   1.8749e+01
+   1.6569e+00
+   3.2958e+01
+   1.3823e+01
+   2.3978e+01
+   1.2565e+00
+   1.8579e+01
+   2.2633e+00
+   4.8436e+00
+   2.2986e+00
+   5.3724e+01
+   4.3828e+01
+   2.1130e+02
+   5.4340e+01
+   1.1425e+02
+   9.2956e+01
+   5.0669e-01
+   7.6270e+02
+   5.5489e+02
+   3.0172e+01
+   4.9686e+02
+
+
+NOTES:  The values of dxdt verify that x_ss and u_ss are a steady-state
+        for the TEest3 model.  You must give the double precision
+	  values of x_ss and u_ss to get these results.  If you instead
+	  truncate to single precision, the state derivatives will be
+	  of the order e-2.
+	  
+	  The above states and inputs were calibrated for the Downs and
+	  Vogel base case conditions.  You can verify that the outputs of
+	  TEest3 (the y variable) are either identical or very close to
+	  those provided by Downs and Vogel.
+	  
+
+The following is an example Fortran main program to do the same 
+calculation as the above Matlab script:
+
+	implicit none
+	
+	integer nx,ny,nu,i
+	parameter (nx=26,nu=25,ny=32)
+	double precision u(nu),x(nx),dxdt(nx),y(ny),ybias(ny),dxdtb(nx)
+	
+	open (unit=1,file='uvals.dat',status='old')
+	read(1,*) (u(i),i=1,nu)
+	close (unit=1)
+	open (unit=1,file='xvals.dat',status='old')
+	read(1,*) (x(i),i=1,nx)
+	close (unit=1)
+	call TEsimf(nx,nu,ny,x,u,y,dxdt)
+	write (*,*) 'DXDT:'
+	do i=1,nx
+		write (*,*) dxdt(i)
+	end do
+	write (*,*) 'Y:'
+	do i=1,ny
+		write (*,*) y(i)
+	end do
+	stop
+	end
+
+
+The values of u_ss given above should be stored
+in the text file uvals.dat.  Similarly, x_ss should be
+stored in xvals.dat.  
+

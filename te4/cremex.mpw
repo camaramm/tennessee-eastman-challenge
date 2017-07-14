@@ -1,0 +1,47 @@
+# These are the commands used to compile and link the MEX file of the 2-phase reactor
+# model.  The commands are for the Macintosh Programmer's Workshop (MPW), using
+# Language Systems Fortran.  If you have another computer or fortran compiler
+# you are ON YOUR OWN!!  See the Matlab manual for you system if you have trouble.
+
+# Even if you have the same configuration as I, you may have to change some details of
+# the commands, such as directory and file names, and the Fortran compile options (e.g.,
+# the -mc68030 switch).
+
+
+
+
+# MPW script to compile and link the MEX file for version 3.5 of Matlab.  Directory and file names
+# may have to be changed to fit the system configuration on your machine.
+
+
+fortran te_4.f -i "{Boot}MATLAB:MEX:" -mc68030 -mc68881 
+  Link -d -f -ad 4 -rt 'MEX0'=0 -sg MEX -m mexmain  -t MEX0 -c MATL  ¶
+       -srt {boot}MATLAB:MEX:MPW:cmex.c.o {boot}MATLAB:MEX:MPW:LS:fmex.c.o 'te_4.f.o'  ¶
+	 {boot}MPW:Libraries:FLibraries:FORTRANLib.o   ¶
+	 {boot}MPW:Libraries:FLibraries:IntrinsicLibFPU.o   ¶
+	 {boot}MPW:Libraries:Libraries:Interface.o   ¶
+	 {boot}MPW:Libraries:Libraries:Runtime.o  ¶
+     -o "te_4.mex"
+
+
+
+
+
+
+# MPW script to compile and link the MEX file for version 4 of Matlab.  Directory and file names
+# may have to be changed to fit the system configuration on your machine.
+
+set mexlibs "{boot}matlab4.1:extern:libraries:MPW:"  # points to directory containing V4.1 MEX stuff
+set destdir {boot}TE_stuff:TE_4_new:                 # points to directory to receive MEX file
+set sourcedir {boot}TE_stuff:TE_4_new:               # points to directory containing source code
+Fortran -t72 -mc68030 -mc68881 {sourcedir}te_4.fv4 -i {sourcedir} -o "{destdir}te_4.f.o"
+Link -d -ad 4 -rt MEX0=0 -sg MEX -m mexmain -sym off -t MEX0 -c MATL -srt  -br on  ¶
+	"{mexlibs}libmex.o" ¶
+	"{mexlibs}flibmex.o" ¶
+	"{mexlibs}LS:fmex4.o" ¶
+	"{destdir}te_4.f.o" ¶
+	"{FLibraries}FORTRANLib.o" ¶
+	"{FLibraries}IntrinsicLibFPU.o" ¶
+	"{Libraries}Interface.o" ¶
+	"{Libraries}Runtime.o" ¶
+ -o "{destdir}TE_4.mex"
